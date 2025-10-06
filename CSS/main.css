@@ -1,0 +1,70 @@
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 2rem 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            width: 350px;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+        .tab {
+            flex: 1;
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: bold;
+        }
+        .tab.active {
+            border-bottom: 2px solid #3498db;
+            color: #3498db;
+        }
+        form {
+            display: none;
+            flex-direction: column;
+        }
+        form.active {
+            display: flex;
+        }
+        label {
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background: #3498db;
+            color: #fff;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .message {
+            margin-top: 1rem;
+            color: #e74c3c;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+    
