@@ -1,29 +1,18 @@
-function handleSignUp(event) {
-    event.preventDefault();
-
-    const username = document.getElementById('signup-username').value.trim();
-    const password = document.getElementById('signup-password').value.trim();
-    const email = document.getElementById('signup-email').value.trim();
-
-    if (!username || !password || !email) {
-        alert('Please fill in all fields.');
-        return;
-    }
-    localStorage.setItem('user', JSON.stringify({ username, email }));
-    alert('Sign up successful!');
-    window.location.href = 'home.html'; 
-}
-if (document.getElementById('signup-form')) {
-    document.getElementById('signup-form').addEventListener('submit', handleSignUp);
-}
-function loadHomePage() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-        document.getElementById('welcome-message').textContent = `Welcome, ${user.username}!`;
-    } else {
-        document.getElementById('welcome-message').textContent = 'Welcome, Guest!';
-    }
-}
-if (document.getElementById('welcome-message')) {
-    window.addEventListener('DOMContentLoaded', loadHomePage);
-}
+const signupForm = document.getElementById('signup-form');
+        const signinForm = document.getElementById('signin-form');
+        document.getElementById('to-signin').onclick = function() {
+            signupForm.style.display = 'none';
+            signinForm.style.display = 'block';
+        };
+        document.getElementById('to-signup').onclick = function() {
+            signinForm.style.display = 'none';
+            signupForm.style.display = 'block';
+        };
+        signupForm.onsubmit = function(e) {
+            e.preventDefault();
+            alert('Sign Up submitted!');
+        };
+        signinForm.onsubmit = function(e) {
+            e.preventDefault();
+            alert('Sign In submitted!');
+        };
