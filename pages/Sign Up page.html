@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up / Sign In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Byte-Sized Squad</div>
+        <div class="tabs">
+            <div class="tab active" id="signup-tab">Sign Up</div>
+            <div class="tab" id="signin-tab">Sign In</div>
+        </div>
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="signup-username">Username</label>
+                <input type="text" id="signup-username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+        <form id="signin-form" style="display:none;">
+            <div class="form-group">
+                <label for="signin-email">Email</label>
+                <input type="email" id="signin-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="signin-password">Password</label>
+                <input type="password" id="signin-password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Sign In</button>
+        </form>
+        <span class="switch-link" id="switch-link"></span>
+    </div>
+    <script>
+        const signupTab = document.getElementById('signup-tab');
+        const signinTab = document.getElementById('signin-tab');
+        const signupForm = document.getElementById('signup-form');
+        const signinForm = document.getElementById('signin-form');
+        const switchLink = document.getElementById('switch-link');
+
+        function showSignUp() {
+            signupTab.classList.add('active');
+            signinTab.classList.remove('active');
+            signupForm.style.display = '';
+            signinForm.style.display = 'none';
+            switchLink.textContent = "Already have an account? Sign In";
+        }
+
+        function showSignIn() {
+            signinTab.classList.add('active');
+            signupTab.classList.remove('active');
+            signinForm.style.display = '';
+            signupForm.style.display = 'none';
+            switchLink.textContent = "Don't have an account? Sign Up";
+        }
+
+        signupTab.onclick = showSignUp;
+        signinTab.onclick = showSignIn;
+        switchLink.onclick = function() {
+            if (signupForm.style.display !== 'none') {
+                showSignIn();
+            } else {
+                showSignUp();
+            }
+        };
+
+        // Initial link text
+        switchLink.textContent = "Already have an account? Sign In";
+
+        // Prevent default form submission for demo
+        signupForm.onsubmit = signinForm.onsubmit = function(e) {
+            e.preventDefault();
+            alert('Form submitted!');
+        };
+    </script>
+</body>
+</html>
