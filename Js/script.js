@@ -16,3 +16,14 @@ const signupForm = document.getElementById('signup-form');
             e.preventDefault();
             alert('Sign In submitted!');
         };
+       
+        window.addEventListener('load', function(){
+        function redirectHome(e){
+        e.preventDefault();
+        window.location.href = 'Home.html';
+    }
+    var signup = document.getElementById('signup-form');
+    var signin = document.getElementById('signin-form');
+    if (signup) signup.addEventListener('submit', redirectHome);
+    if (signin) signin.addEventListener('submit', redirectHome);
+});
