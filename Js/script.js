@@ -1,9 +1,24 @@
-<script>
-    Tab switching
-        const signupTab = document.getElementById('signup-tab');
-        const signinTab = document.getElementById('signin-tab');
-        const signupForm = document.getElementById('signup-form');
+document.addEventListener('DOMContentLoaded', function () {
+        const toSignin = document.getElementById('to-signin');
+        const toSignup = document.getElementById('to-signup');
         const signinForm = document.getElementById('signin-form');
+        const signupForm = document.getElementById('signup-form');
+
+        function showSignin(e) {
+            if (e) e.preventDefault();
+            if (signupForm) signupForm.style.display = 'none';
+            if (signinForm) signinForm.style.display = 'block';
+        }
+
+        function showSignup(e) {
+            if (e) e.preventDefault();
+            if (signinForm) signinForm.style.display = 'none';
+            if (signupForm) signupForm.style.display = 'block';
+        }
+
+        if (toSignin) toSignin.addEventListener('click', showSignin);
+        if (toSignup) toSignup.addEventListener('click', showSignup);
+    });
 
         signupTab.onclick = () => {
             signupTab.classList.add('active');
@@ -49,7 +64,6 @@
                 message.textContent = 'Please enter your email and password.';
             }
         };
-    </script>
        
         window.addEventListener('load', function(){
         function redirectHome(e){
