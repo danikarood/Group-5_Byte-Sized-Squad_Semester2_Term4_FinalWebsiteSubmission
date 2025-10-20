@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .movie-poster {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+        .movie-title {
+            font-size: 2em;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .movie-info {
+            margin-bottom: 16px;
+            color: #555;
+        }
+        .movie-description {
+            margin-bottom: 24px;
+            color: #444;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 16px;
+            color: #0077cc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="../images/sample-movie-poster.jpg" alt="Movie Poster" class="movie-poster">
+        <h1 class="movie-title">Movie Title</h1>
+        <div class="movie-info">
+            <strong>Release Date:</strong> 2024-01-01<br>
+            <strong>Genre:</strong> Action, Adventure<br>
+            <strong>Rating:</strong> PG-13
+        </div>
+        <div class="movie-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse euismod, urna eu tincidunt consectetur, nisi nisl aliquam enim, eu cursus enim erat eu massa.
+        </div>
+        <a href="../index.html" class="back-link">&larr; Back to Movies</a>
+    </div>
+</body>
+</html>
