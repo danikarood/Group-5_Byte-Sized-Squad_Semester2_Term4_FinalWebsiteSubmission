@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Library</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        /* Blue Color Palette Definitions: */
+        /* #0D1A26 - Deep Navy Blue (Primary Background) */
+        /* #1A344D - Dark Blue (Header/Footer/Accent) */
+        /* #2A496D - Medium Blue (Slide Background) */
+        /* #4A90E2 - Bright Blue (Accent/Link Color - Replaces Gold) */
+        /* #B0C7E2 - Light Blue/Gray (Main Text Color) */
+        /* #E0F2FF - Very Light Blue (Title Color) */
+
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #0D1A26; /* Deep Navy Blue */
+            color: #B0C7E2; /* Light Blue/Gray */
+        }
+
+        header {
+            background-color: #1A344D; /* Dark Blue */
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #E0F2FF; /* Very Light Blue */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Added a class for the category title */
+        .category-title {
+            color: #4A90E2;
+            text-align: left;
+            padding: 10px 20px 0;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .swiper {
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .swiper-slide {
+            background-color: #2A496D; /* Medium Blue */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            transition: transform 0.3s ease;
+            
+            /* Enforce uniform slide height for layout consistency */
+            height: 450px; /* Adjust this value as needed for the ideal poster size */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .swiper-slide:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            /* Set a fixed height for all images */
+            height: 380px; /* This height is fixed for the image portion */
+            
+            /* Object-fit ensures the image covers the area without stretching */
+            object-fit: cover; 
+            
+            /* Using a bright blue border/separator */
+            border-bottom: 2px solid #4A90E2; 
+        }
+
+        .swiper-slide h3 {
+            margin: 10px 0;
+            font-size: 1.5rem;
+            color: #4A90E2; /* Bright Blue */
+            /* Add padding/margin to maintain consistency below image */
+            padding: 0 5px; 
+            flex-shrink: 0; /* Prevents the title from shrinking if space is tight */
+        }
+
+        .swiper-slide h3 a {
+            color: #4A90E2; /* Bright Blue */
+            text-decoration: none;
+        }
+
+        .swiper-slide h3 a:hover {
+            text-decoration: underline;
+            color: #66B3FF; /* Lighter shade of blue on hover */
+        }
+
+        /* Swiper Navigation (Arrows) - Making them visible and blue */
+        .swiper-button-next, .swiper-button-prev {
+            color: #E0F2FF !important; /* Very Light Blue for arrows */
+            fill: #E0F2FF !important;
+            stroke: #E0F2FF !important;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Swiper Pagination (Dots) - Adjusting dot color */
+        .swiper-pagination-bullet-active {
+            background: #4A90E2 !important; /* Bright Blue for active dot */
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #1A344D; /* Dark Blue */
+            color: #B0C7E2; /* Light Blue/Gray */
+            font-size: 0.9rem;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <header>Movie Library</header>
+    
+    <h2 class="category-title">Action & Sequels</h2>
+    <div class="swiper swiper-1">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="../Assets/images/Mission Impossible poster.jpg" alt="Mission Impossible: The Final Reckoning">
+                <h3><a href="mission-impossible-final.html">Mission Impossible: The Final Reckoning</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/The Accountant 2 poster.jpg" alt="The Accountant 2">
+                <h3><a href="accountant-2.html">The Accountant 2</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Nobody 2 poster.jpg" alt="Nobody 2">
+                <h3><a href="nobody-2.html">Nobody 2</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Ballerina poster.jpg" alt="Ballerina">
+                <h3><a href="ballerina.html">Ballerina</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Weapons poster.jpg" alt="Weapons">
+                <h3><a href="weapons.html">Weapons</a></h3>
+            </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-1"></div>
+        <div class="swiper-button-next swiper-button-next-1"></div>
+        <div class="swiper-button-prev swiper-button-prev-1"></div>
+    </div>
+
+    <h2 class="category-title">Sci-Fi & Fantasy</h2>
+    <div class="swiper swiper-2">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="../Assets/images/Avatar Fire and Ash poster.jpg" alt="Avatar: Fire and Ash">
+                <h3><a href="avatar-fire-and-ash.html">Avatar: Fire and Ash</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Mickey 17 poster.jpg" alt="Mickey 17">
+                <h3><a href="mickey-17.html">Mickey 17</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/The Fantastic Four First steps poster.avif" alt="The Fantastic Four: First Steps">
+                <h3><a href="fantastic-four.html">The Fantastic Four: First Steps</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Superman poster.jpg" alt="Superman">
+                <h3><a href="superman.html">Superman</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Companion poster.jpg" alt="Companion">
+                <h3><a href="companion.html">Companion</a></h3>
+            </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-2"></div>
+        <div class="swiper-button-next swiper-button-next-2"></div>
+        <div class="swiper-button-prev swiper-button-prev-2"></div>
+    </div>
+
+    <h2 class="category-title">Horror & Thrillers</h2>
+    <div class="swiper swiper-3">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="../Assets/images/Final Destination Bloodlines poster.jpg" alt="Final Destination Bloodlines">
+                <h3><a href="final-destination-bloodlines.html">Final Destination Bloodlines</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/28 Years Later poster.jpg" alt="28 Years Later">
+                <h3><a href="28-years-later.html">28 Years Later</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Bring Her Home poster.jpg" alt="Bring Her Back">
+                <h3><a href="bring-her-back.html">Bring Her Back</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Blackbag poster.jpg" alt="Black Bag">
+                <h3><a href="black-bag.html">Black Bag</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Sinners poster.jpg" alt="Sinners">
+                <h3><a href="sinners.html">Sinners</a></h3>
+            </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-3"></div>
+        <div class="swiper-button-next swiper-button-next-3"></div>
+        <div class="swiper-button-prev swiper-button-prev-3"></div>
+    </div>
+
+    <h2 class="category-title">Comedy & Drama</h2>
+    <div class="swiper swiper-4">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="../Assets/images/The Naked Gun poster.jpg" alt="The Naked Gun">
+                <h3><a href="the-naked-gun.html">The Naked Gun</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Sorry Baby poster.jpg" alt="Sorry, Baby">
+                <h3><a href="sorry-baby.html">Sorry, Baby</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Eddington poster.jpg" alt="Eddington">
+                <h3><a href="eddington.html">Eddington</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Highest 2 Lowest poster.jpg" alt="Highest 2 Lowest">
+                <h3><a href="highest-2-lowest.html">Highest 2 Lowest</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/F1 Movie poster.jpg" alt="F1 The Movie">
+                <h3><a href="f1-the-movie.html">F1 The Movie</a></h3>
+            </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-4"></div>
+        <div class="swiper-button-next swiper-button-next-4"></div>
+        <div class="swiper-button-prev swiper-button-prev-4"></div>
+    </div>
+
+    <h2 class="category-title">Comic Book & Adventure</h2>
+    <div class="swiper swiper-5">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="../Assets/images/Thunderbolts poster.jpg"alt="Thunderbolts">
+                <h3><a href="thunderbolts.html">Thunderbolts</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Captain America Brave New World poster.jpg" alt="Captain America: Brave New World">
+                <h3><a href="captain-america-brave-new-world.html">Captain America: Brave New World</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/How To Train Your Dragon poster.jpg" alt="How to Train Your Dragon">
+                <h3><a href="how-to-train-your-dragon.html">How to Train Your Dragon</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/A Minecraft Movie poster.webp"  alt="A Minecraft Movie">
+                <h3><a href="minecraft-movie.html">A Minecraft Movie</a></h3>
+            </div>
+            <div class="swiper-slide">
+                <img src="../Assets/images/Jurassic World Rebirth poster.jpg" alt="Jurassic World Rebirth">
+                <h3><a href="jurassic-world-rebirth.html">Jurassic World Rebirth</a></h3>
+            </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-5"></div>
+        <div class="swiper-button-next swiper-button-next-5"></div>
+        <div class="swiper-button-prev swiper-button-prev-5"></div>
+    </div>
+
+    <footer>© 2023 Movie Library. All rights reserved.</footer>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Configuration object for re-use
+        const swiperConfig = {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 30,
+                },
+            },
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+        };
+
+        // Initialize Swipers 1 through 4
+        const firstSwiper = new Swiper('.swiper-1', {
+            ...swiperConfig, 
+            pagination: { el: '.swiper-pagination-1', clickable: true },
+            navigation: { nextEl: '.swiper-button-next-1', prevEl: '.swiper-button-prev-1' },
+        });
+
+        const secondSwiper = new Swiper('.swiper-2', {
+            ...swiperConfig, 
+            pagination: { el: '.swiper-pagination-2', clickable: true },
+            navigation: { nextEl: '.swiper-button-next-2', prevEl: '.swiper-button-prev-2' },
+        });
+
+        const thirdSwiper = new Swiper('.swiper-3', {
+            ...swiperConfig,
+            pagination: { el: '.swiper-pagination-3', clickable: true },
+            navigation: { nextEl: '.swiper-button-next-3', prevEl: '.swiper-button-prev-3' },
+        });
+
+        const fourthSwiper = new Swiper('.swiper-4', {
+            ...swiperConfig,
+            pagination: { el: '.swiper-pagination-4', clickable: true },
+            navigation: { nextEl: '.swiper-button-next-4', prevEl: '.swiper-button-prev-4' },
+        });
+
+        // Initialize the FIFTH Swiper (New)
+        const fifthSwiper = new Swiper('.swiper-5', {
+            ...swiperConfig,
+            pagination: { el: '.swiper-pagination-5', clickable: true },
+            navigation: { nextEl: '.swiper-button-next-5', prevEl: '.swiper-button-prev-5' },
+        });
+    </script>
+</body>
+</html>
