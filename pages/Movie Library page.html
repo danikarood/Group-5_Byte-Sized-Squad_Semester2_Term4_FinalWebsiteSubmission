@@ -5,118 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Library</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <style>
-        /* Blue Color Palette Definitions: */
-        /* #0D1A26 - Deep Navy Blue (Primary Background) */
-        /* #1A344D - Dark Blue (Header/Footer/Accent) */
-        /* #2A496D - Medium Blue (Slide Background) */
-        /* #4A90E2 - Bright Blue (Accent/Link Color - Replaces Gold) */
-        /* #B0C7E2 - Light Blue/Gray (Main Text Color) */
-        /* #E0F2FF - Very Light Blue (Title Color) */
+     <link rel="stylesheet" href="../css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #0D1A26; /* Deep Navy Blue */
-            color: #B0C7E2; /* Light Blue/Gray */
-        }
-
-        header {
-            background-color: #1A344D; /* Dark Blue */
-            padding: 20px;
-            text-align: center;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #E0F2FF; /* Very Light Blue */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Added a class for the category title */
-        .category-title {
-            color: #4A90E2;
-            text-align: left;
-            padding: 10px 20px 0;
-            margin: 0;
-            font-size: 1.8rem;
-        }
-
-        .swiper {
-            width: 100%;
-            padding: 20px 0;
-        }
-
-        .swiper-slide {
-            background-color: #2A496D; /* Medium Blue */
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            transition: transform 0.3s ease;
-            
-            /* Enforce uniform slide height for layout consistency */
-            height: 450px; /* Adjust this value as needed for the ideal poster size */
-            display: flex;
-            flex-direction: column;
-        }
-
-        .swiper-slide:hover {
-            transform: translateY(-5px); /* Lift effect on hover */
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
-        }
-
-        .swiper-slide img {
-            width: 100%;
-            /* Set a fixed height for all images */
-            height: 380px; /* This height is fixed for the image portion */
-            
-            /* Object-fit ensures the image covers the area without stretching */
-            object-fit: cover; 
-            
-            /* Using a bright blue border/separator */
-            border-bottom: 2px solid #4A90E2; 
-        }
-
-        .swiper-slide h3 {
-            margin: 10px 0;
-            font-size: 1.5rem;
-            color: #4A90E2; /* Bright Blue */
-            /* Add padding/margin to maintain consistency below image */
-            padding: 0 5px; 
-            flex-shrink: 0; /* Prevents the title from shrinking if space is tight */
-        }
-
-        .swiper-slide h3 a {
-            color: #4A90E2; /* Bright Blue */
-            text-decoration: none;
-        }
-
-        .swiper-slide h3 a:hover {
-            text-decoration: underline;
-            color: #66B3FF; /* Lighter shade of blue on hover */
-        }
-
-        /* Swiper Navigation (Arrows) - Making them visible and blue */
-        .swiper-button-next, .swiper-button-prev {
-            color: #E0F2FF !important; /* Very Light Blue for arrows */
-            fill: #E0F2FF !important;
-            stroke: #E0F2FF !important;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-        }
-        
-        /* Swiper Pagination (Dots) - Adjusting dot color */
-        .swiper-pagination-bullet-active {
-            background: #4A90E2 !important; /* Bright Blue for active dot */
-        }
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #1A344D; /* Dark Blue */
-            color: #B0C7E2; /* Light Blue/Gray */
-            font-size: 0.9rem;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
-        }
-    </style>
 </head>
 <body>
     <header>Movie Library</header>
@@ -266,62 +157,13 @@
         <div class="swiper-button-prev swiper-button-prev-5"></div>
     </div>
 
-    <footer>© 2023 Movie Library. All rights reserved.</footer>
+     <div class="footer">
+            <p>&copy; 2025 Byte-Sized Squad. All rights reserved.</p>
+        </div>
 
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        // Configuration object for re-use
-        const swiperConfig = {
-            slidesPerView: 1,
-            spaceBetween: 10,
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 30,
-                },
-            },
-            loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
-        };
-
-        // Initialize Swipers 1 through 4
-        const firstSwiper = new Swiper('.swiper-1', {
-            ...swiperConfig, 
-            pagination: { el: '.swiper-pagination-1', clickable: true },
-            navigation: { nextEl: '.swiper-button-next-1', prevEl: '.swiper-button-prev-1' },
-        });
-
-        const secondSwiper = new Swiper('.swiper-2', {
-            ...swiperConfig, 
-            pagination: { el: '.swiper-pagination-2', clickable: true },
-            navigation: { nextEl: '.swiper-button-next-2', prevEl: '.swiper-button-prev-2' },
-        });
-
-        const thirdSwiper = new Swiper('.swiper-3', {
-            ...swiperConfig,
-            pagination: { el: '.swiper-pagination-3', clickable: true },
-            navigation: { nextEl: '.swiper-button-next-3', prevEl: '.swiper-button-prev-3' },
-        });
-
-        const fourthSwiper = new Swiper('.swiper-4', {
-            ...swiperConfig,
-            pagination: { el: '.swiper-pagination-4', clickable: true },
-            navigation: { nextEl: '.swiper-button-next-4', prevEl: '.swiper-button-prev-4' },
-        });
-
-        // Initialize the FIFTH Swiper (New)
-        const fifthSwiper = new Swiper('.swiper-5', {
-            ...swiperConfig,
-            pagination: { el: '.swiper-pagination-5', clickable: true },
-            navigation: { nextEl: '.swiper-button-next-5', prevEl: '.swiper-button-prev-5' },
-        });
-    </script>
+    <script src="https://kit.fontawesome.com/11eed083ad.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <script src="/js/script.js"></script>
+    
 </body>
 </html>
