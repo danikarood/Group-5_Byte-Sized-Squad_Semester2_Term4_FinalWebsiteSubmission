@@ -247,3 +247,19 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('movieTitle').value = '';
             alert(`Added "${movieData.title}" to the watchlist!`);
         }
+
+        export function getParam(name) {
+  const params = new URLSearchParams(location.search);
+  return params.get(name);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('navSearchForm');
+  const input = document.getElementById('navSearchInput');
+  if (!form || !input) return;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = input.value.trim();
+    location.href = q ? `Movie Library page.html?q=${encodeURIComponent(q)}` : `Movie Library page.html`;
+  });
+});
