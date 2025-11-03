@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert(`Added "${movieData.title}" to the watchlist!`);
         }
 
-        export function getParam(name) {
+         function getParam(name) {
   const params = new URLSearchParams(location.search);
   return params.get(name);
 }
@@ -263,3 +263,182 @@ document.addEventListener('DOMContentLoaded', () => {
     location.href = q ? `Movie Library page.html?q=${encodeURIComponent(q)}` : `Movie Library page.html`;
   });
 });
+
+
+// NAVBAR SEARCH: send user to Library page with ?q=search terms
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('navSearchForm');
+  const input = document.getElementById('navSearchInput');
+  if (!form || !input) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = input.value.trim();
+    // go to Library page with q parameter
+    const url = q
+      ? `Movie Library page.html?q=${encodeURIComponent(q)}`
+      : `Movie Library page.html`;
+    window.location.href = url;
+  });
+});
+
+
+// ===== LIBRARY PAGE SEARCH RENDER =====
+(function () {
+  // only run this on the Library page
+  if (!location.pathname.endsWith('Movie%20Library%20page.html') &&
+      !location.pathname.endsWith('Movie Library page.html')) return;
+
+  const TMDB_KEY = 'YOUR_TMDB_API_KEY'; // <--- put your real key here
+  const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
+  const grid = document.getElementById('grid');
+
+  function getParam(name) {
+    const p = new URLSearchParams(location.search);
+    return p.get(name);
+  }
+  function poster(path) {
+    return path ? `${IMG_BASE}${path}` : '../Assets/images/placeholder.jpg';
+  }
+  function card(m) {
+    return `
+      <div class="col-6 col-md-3 col-lg-2">
+        <div class="card h-100">
+          <img src="${poster(m.poster_path)}" class="card-img-top" alt="${m.title}">
+          <div class="card-body">
+            <h6 class="card-title text-truncate" title="${m.title}">${m.title}</h6>
+            <a href="individual movie page.html?id=${m.id}" class="btn btn-sm btn-outline-primary w-100">Details</a>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  async function searchTMDB(q) {
+    const url = new URL('https://api.themoviedb.org/3/search/movie');
+    url.searchParams.set('api_key', TMDB_KEY);
+    url.searchParams.set('query', q);
+    url.searchParams.set('include_adult', 'false');
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('TMDB error ' + res.status);
+    return res.json();
+  }
+
+  async function load() {
+    if (!grid) return;
+    const q = getParam('q');
+
+    try {
+      if (q) {
+        // do a real search
+        const data = await searchTMDB(q);
+        if (!data.results?.length) {
+          grid.innerHTML = `<div class="alert alert-warning">No results for <strong>${q}</strong>.</div>`;
+          return;
+        }
+        grid.innerHTML = data.results.slice(0, 30).map(card).join('');
+      } else {
+        // fallback: show some top rated if no query (optional)
+        const url = new URL('https://api.themoviedb.org/3/movie/top_rated');
+        url.searchParams.set('api_key', TMDB_KEY);
+        const res = await fetch(url);
+        const data = await res.json();
+        grid.innerHTML = data.results.slice(0, 24).map(card).join('');
+      }
+    } catch (err) {
+      console.error(err);
+      grid.innerHTML = `<div class="alert alert-danger">Could not load movies. Check your internet or API key.</div>`;
+    }
+  }
+
+  load();
+})();
+
+// ========== NAVBAR SEARCH ==========
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('navSearchForm');
+  const input = document.getElementById('navSearchInput');
+  if (!form || !input) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = input.value.trim();
+    // Go to the Library page and pass ?q=searchterm in the URL
+    const url = q
+      ? `Movie Library page.html?q=${encodeURIComponent(q)}`
+      : `Movie Library page.html`;
+    window.location.href = url;
+  });
+});
+
+// ========== MOVIE LIBRARY SEARCH RESULTS ==========
+(function () {
+  // only run on the Library page
+  if (!location.pathname.includes('Movie Library page.html')) return;
+
+  const TMDB_KEY = 'YOUR_TMDB_API_KEY'; // <-- put your real TMDB key here
+  const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
+  const grid = document.getElementById('grid');
+
+  function getParam(name) {
+    const p = new URLSearchParams(location.search);
+    return p.get(name);
+  }
+
+  function poster(path) {
+    return path ? `${IMG_BASE}${path}` : '../Assets/images/placeholder.jpg';
+  }
+
+  function card(m) {
+    return `
+      <div class="col-6 col-md-3 col-lg-2">
+        <div class="card h-100">
+          <img src="${poster(m.poster_path)}" class="card-img-top" alt="${m.title}">
+          <div class="card-body">
+            <h6 class="card-title text-truncate" title="${m.title}">${m.title}</h6>
+            <a href="individual movie page.html?id=${m.id}" class="btn btn-sm btn-outline-primary w-100">Details</a>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  async function searchTMDB(q) {
+    const url = new URL('https://api.themoviedb.org/3/search/movie');
+    url.searchParams.set('api_key', TMDB_KEY);
+    url.searchParams.set('query', q);
+    url.searchParams.set('include_adult', 'false');
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('TMDB error ' + res.status);
+    return res.json();
+  }
+
+  async function load() {
+    if (!grid) return;
+    const q = getParam('q');
+    grid.innerHTML = '<div class="text-center text-light">Loading...</div>';
+
+    try {
+      if (q) {
+        const data = await searchTMDB(q);
+        if (!data.results?.length) {
+          grid.innerHTML = `<div class="alert alert-warning">No results for <strong>${q}</strong>.</div>`;
+          return;
+        }
+        grid.innerHTML = data.results.slice(0, 30).map(card).join('');
+      } else {
+        // optional: show top rated movies when no search term
+        const res = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${TMDB_KEY}`);
+        const data = await res.json();
+        grid.innerHTML = data.results.slice(0, 24).map(card).join('');
+      }
+    } catch (err) {
+      console.error(err);
+      grid.innerHTML = `<div class="alert alert-danger">Could not load movies. Check your API key.</div>`;
+    }
+  }
+
+  load();
+})();
+
+
