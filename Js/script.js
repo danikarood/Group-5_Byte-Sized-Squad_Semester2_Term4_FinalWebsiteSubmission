@@ -470,5 +470,95 @@ const TMDB_KEY = 'aa422f87f74479ba91ae1086951f904a';
   });
 })();
 
+/* ===== QUICK ADD-TO-WATCHLIST (works on Home/Library) ===== */
+(function () {
+  // Reuse your existing key; if you don't have this constant in script.js yet, add it here:
+  const TMDB_KEY = 'aa422f87f74479ba91ae1086951f904a';
+  const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
+  const PLACEHOLDER = '../Assets/images/placeholder.jpg';
+  const WL_KEY = 'watchlist';
+
+  function getWatchlist() {
+    try { return JSON.parse(localStorage.getItem(WL_KEY)) || []; } catch { return []; }
+  }
+  function setWatchlist(list) {
+    localStorage.setItem(WL_KEY, JSON.stringify(list || []));
+    // update navbar badge if present
+    const badge = document.getElementById('wlCountBadge');
+    if (badge) badge.textContent = getWatchlist().length;
+  }
+  function inWatchlist(id) {
+    return getWatchlist().some(m => m.id === id);
+  }
+  function addToWatchlist(movie) {
+    const list = getWatchlist();
+    if (!inWatchlist(movie.id)) {
+      list.push({
+        id: movie.id,
+        title: movie.title,
+        poster_path: movie.poster_path || null,
+        vote_average: movie.vote_average || null
+      });
+      setWatchlist(list);
+    }
+  }
+
+  async function fetchMovieById(id) {
+    const url = new URL(`https://api.themoviedb.org/3/movie/${id}`);
+    url.searchParams.set('api_key', TMDB_KEY);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('TMDB ' + res.status);
+    return res.json();
+  }
+
+  // Click handler for any button with [data-add-watchlist]
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-add-watchlist]');
+    if (!btn) return;
+
+    const id = Number(btn.getAttribute('data-id'));
+    if (!id || btn.disabled) return;
+
+    try {
+      btn.disabled = true;
+      btn.textContent = 'Adding…';
+
+      // If it’s already saved, just show state
+      if (inWatchlist(id)) {
+        btn.textContent = 'Added';
+        btn.classList.remove('btn-outline-warning');
+        btn.classList.add('btn-success');
+        return;
+      }
+
+      // Fetch full details so watchlist has poster/rating
+      const m = await fetchMovieById(id);
+      addToWatchlist(m);
+
+      // Success UI
+      btn.textContent = 'Added';
+      btn.classList.remove('btn-outline-warning');
+      btn.classList.add('btn-success');
+    } catch (err) {
+      console.error(err);
+      btn.disabled = false;
+      btn.textContent = '+ Watchlist';
+      alert('Could not add to watchlist. Check your internet or TMDB key.');
+    }
+  });
+
+  // On load, mark already-added buttons
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-add-watchlist][data-id]').forEach((btn) => {
+      const id = Number(btn.getAttribute('data-id'));
+      if (inWatchlist(id)) {
+        btn.textContent = 'Added';
+        btn.classList.remove('btn-outline-warning');
+        btn.classList.add('btn-success');
+        btn.disabled = true;
+      }
+    });
+  });
+})();
 
 
