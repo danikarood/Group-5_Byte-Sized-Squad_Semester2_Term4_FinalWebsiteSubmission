@@ -425,4 +425,50 @@ const TMDB_KEY = 'aa422f87f74479ba91ae1086951f904a';
   load();
 })();
 
+// ===== HOME PAGE: fill posters by TMDB id =====
+(function () {
+  const path = decodeURIComponent(location.pathname);
+  if (!path.endsWith('Home page.html')) return;
+
+  const TMDB_KEY = 'aa422f87f74479ba91ae1086951f904a'; // your v3 key
+  const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
+  const PLACEHOLDER = '../Assets/images/placeholder.jpg';
+
+  async function getMovieById(id) {
+    const url = new URL(`https://api.themoviedb.org/3/movie/${id}`);
+    url.searchParams.set('api_key', TMDB_KEY);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('TMDB ' + res.status);
+    return res.json();
+  }
+
+  const cache = new Map(); // optional: avoids refetching if you revisit
+
+  document.querySelectorAll('.home-poster[data-id]').forEach(async (img) => {
+    const id = img.dataset.id;
+    try {
+      const data = cache.has(id) ? cache.get(id) : await getMovieById(id);
+      cache.set(id, data);
+
+      img.src = data.poster_path ? `${IMG_BASE}${data.poster_path}` : PLACEHOLDER;
+      img.alt = data.title || img.alt || 'Poster';
+
+      // Optional: fill title/rating if you added placeholders in your card
+      const card = img.closest('.card, .movie-card, .slide') || img.parentElement;
+      if (card) {
+        const titleEl = card.querySelector('[data-fill="title"]');
+        const ratingEl = card.querySelector('[data-fill="rating"]');
+        const detailsLink = card.querySelector('[data-fill="details-link"]');
+        if (titleEl)  titleEl.textContent  = data.title || 'Untitled';
+        if (ratingEl) ratingEl.textContent = data.vote_average ? data.vote_average.toFixed(1) : 'N/A';
+        if (detailsLink) detailsLink.href  = `individual movie page.html?id=${id}`;
+      }
+    } catch (e) {
+      console.warn('Poster load failed for id', id, e);
+      img.src = PLACEHOLDER;
+    }
+  });
+})();
+
+
 

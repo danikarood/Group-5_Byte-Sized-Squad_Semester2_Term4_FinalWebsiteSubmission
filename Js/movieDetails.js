@@ -36,18 +36,81 @@ async function fetchMovie(id) {
   return data;
 }
 
-function fillTrailer(videos) {
-  const t = (videos?.results || []).find(v => v.site === 'YouTube' && v.type === 'Trailer');
-  if (t) {
-    $('trailer').innerHTML = `
-      <div class="ratio ratio-16x9">
-        <iframe src="https://www.youtube.com/embed/${t.key}" title="Trailer" allowfullscreen></iframe>
-      </div>`;
+// ===== NEW trailer handling =====
+function pickBestVideo(videos) {
+  const list = (videos?.results || []).filter(v => v.site === 'YouTube');
+  let best = list.find(v => v.type === 'Trailer' && /official/i.test(v.name));
+  if (best) return best;
+  best = list.find(v => v.type === 'Trailer');
+  if (best) return best;
+  best = list.find(v => v.type === 'Teaser') || list.find(v => v.type === 'Clip');
+  return best || list[0] || null;
+}
+
+function iframeHTML(youtubeKey, title = 'Trailer') {
+  // default to privacy-friendly domain; include origin
+  const origin = encodeURIComponent(location.origin || 'http://127.0.0.1:5500');
+  const srcNoCookie = `https://www.youtube-nocookie.com/embed/${youtubeKey}?rel=0&modestbranding=1&playsinline=1&origin=${origin}`;
+
+  // extra controls below the iframe so user can switch if nocookie fails for them
+  return `
+    <div class="ratio ratio-16x9">
+      <iframe
+        id="ytFrame"
+        src="${srcNoCookie}"
+        title="${title}"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        loading="lazy"></iframe>
+    </div>
+    <div class="d-flex justify-content-end gap-2 mt-2">
+      <button id="altPlayerBtn" class="btn btn-sm btn-outline-light">Try alternate player</button>
+      <a class="btn btn-sm btn-outline-secondary" target="_blank" rel="noopener"
+         href="https://www.youtube.com/watch?v=${youtubeKey}">Open on YouTube</a>
+    </div>
+    <script>
+      (function(){
+        const btn = document.getElementById('altPlayerBtn');
+        const f = document.getElementById('ytFrame');
+        if (btn && f) {
+          btn.addEventListener('click', () => {
+            const origin = encodeURIComponent(location.origin || 'http://127.0.0.1:5500');
+            // swap to standard youtube.com embed (some videos only work here)
+            f.src = "https://www.youtube.com/embed/${youtubeKey}?rel=0&modestbranding=1&playsinline=1&origin=" + origin + "&enablejsapi=1";
+          });
+        }
+      })();
+    </script>
+  `;
+}
+
+function renderTrailer(videos) {
+  const container = document.getElementById('trailer') || document.getElementById('trailerWrap');
+  if (!container) return;
+
+  const list = (videos?.results || []).filter(v => v.site === 'YouTube');
+  // prefer "Official Trailer", then any Trailer, then Teaser/Clip
+  let best = list.find(v => v.type === 'Trailer' && /official/i.test(v.name))
+           || list.find(v => v.type === 'Trailer')
+           || list.find(v => v.type === 'Teaser')
+           || list.find(v => v.type === 'Clip')
+           || list[0];
+
+  if (best?.key) {
+    container.innerHTML = iframeHTML(best.key, best.name || 'Trailer');
   } else {
-    $('trailer').innerHTML = `<div class="alert alert-secondary">No trailer available.</div>`;
+    container.innerHTML = `
+      <div class="alert alert-secondary">
+        No trailer available from TMDB.
+        <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(document.title.replace(' | Movie Details',''))}+trailer" target="_blank" rel="noopener">
+          Search on YouTube
+        </a>.
+      </div>`;
   }
 }
 
+
+// ===== MAIN INIT =====
 async function init() {
   const id = getIdFromQuery();
   if (!id) {
@@ -76,8 +139,8 @@ async function init() {
     $('director').textContent = director?.name || 'N/A';
     $('cast').textContent = (m.credits?.cast || []).slice(0, 5).map(a => a.name).join(', ') || 'N/A';
 
-    // Trailer
-    fillTrailer(m.videos);
+    // Trailer (new system)
+    renderTrailer(m.videos);
 
     // Watchlist button
     const btn = $('addToWatchlist');
@@ -104,3 +167,4 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
