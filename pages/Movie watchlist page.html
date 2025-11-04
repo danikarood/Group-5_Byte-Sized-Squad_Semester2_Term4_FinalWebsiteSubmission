@@ -5,28 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Your Watchlist | Byte-Sized Squad</title>
 
-  <!-- Bootstrap + your site styles -->
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../css/main.css" />
 
   <style>
-    /* Full-width section, centered white shell */
+
     .watchlist-shell{
       width:100%;
-      max-width:1400px;         /* cap so it doesn’t get too wide */
-      margin:0 auto;            /* center the panel */
+      max-width:1400px;      
+      margin:0 auto;           
       background:#ffffff;
       border-radius:24px;
       padding:32px 40px;
       box-shadow:0 10px 30px rgba(0,0,0,.25);
     }
 
-    /* Card sizing to match Home cards */
     #watchlistGrid .movie-card{ width:100%; height:100%; display:flex; flex-direction:column; }
     #watchlistGrid .movie-poster{ width:100%; height:420px; object-fit:cover; }
     #watchlistGrid .movie-info{ padding:1.25rem; }
 
-    /* Nice empty state */
+    
     .empty-box{
       background: rgba(255,255,255,0.05);
       border: 1px dashed rgba(255,255,255,0.2);
@@ -39,7 +38,7 @@
 </head>
 <body class="bg-dark text-light">
 
-  <!-- Navbar -->
+  
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold" href="Home page.html">Byte-Sized Squad</a>
@@ -52,7 +51,7 @@
           <li class="nav-item"><a class="nav-link" href="Movie Library page.html">Library</a></li>
           <li class="nav-item"><a class="nav-link active" href="Movie watchlist page.html">Watchlist</a></li>
         </ul>
-        <!-- keep these IDs; your search JS uses them -->
+        
         <form id="navSearchForm" class="d-flex" role="search">
           <input id="navSearchInput" class="form-control me-2" type="search" placeholder="Search movies…">
           <button class="btn btn-outline-light" type="submit">Search</button>
@@ -61,7 +60,7 @@
     </div>
   </nav>
 
-  <!-- Wider section for the panel -->
+ 
   <main class="container-fluid py-5">
     <div class="d-flex align-items-center justify-content-between mb-3 px-3 px-lg-5">
       <h1 class="h3 m-0">Your Watchlist</h1>
@@ -75,7 +74,7 @@
           <p class="mb-0">Browse the <a href="Movie Library page.html" class="link-light fw-semibold">Library</a> or the <a href="Home page.html" class="link-light fw-semibold">Home</a> page and tap <span class="badge text-bg-warning">+ Watchlist</span> on any movie.</p>
         </div>
 
-        <!-- Even spacing: 1 / 2 / 4 / 5 across by breakpoint -->
+       
         <div id="watchlistGrid" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xxl-5 g-4"></div>
       </div>
     </div>
@@ -88,7 +87,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    /* ===== Watchlist render (cards match Home) ===== */
+    
     const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
     const PLACEHOLDER = '../Assets/images/placeholder.jpg';
     const WL_KEY = 'watchlist';
@@ -132,7 +131,7 @@
       grid.innerHTML = list.map(cardHTML).join('');
     }
 
-    // Remove single item
+    
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-remove]');
       if (!btn) return;
@@ -142,7 +141,7 @@
       renderWatchlist();
     });
 
-    // Clear all
+
     document.getElementById('clearWatchlist')?.addEventListener('click', () => {
       if (confirm('Clear your entire watchlist?')){
         setWatchlist([]);
