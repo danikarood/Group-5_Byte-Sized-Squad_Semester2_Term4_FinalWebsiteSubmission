@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!location.pathname.endsWith('Movie%20Library%20page.html') &&
       !location.pathname.endsWith('Movie Library page.html')) return;
 
-  const TMDB_KEY = 'YOUR_TMDB_API_KEY'; // <--- put your real key here
+const TMDB_KEY = 'aa422f87f74479ba91ae1086951f904a';
   const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
   const grid = document.getElementById('grid');
 
@@ -354,29 +354,13 @@ document.addEventListener('DOMContentLoaded', () => {
   load();
 })();
 
-// ========== NAVBAR SEARCH ==========
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('navSearchForm');
-  const input = document.getElementById('navSearchInput');
-  if (!form || !input) return;
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const q = input.value.trim();
-    // Go to the Library page and pass ?q=searchterm in the URL
-    const url = q
-      ? `Movie Library page.html?q=${encodeURIComponent(q)}`
-      : `Movie Library page.html`;
-    window.location.href = url;
-  });
-});
 
 // ========== MOVIE LIBRARY SEARCH RESULTS ==========
 (function () {
   // only run on the Library page
   if (!location.pathname.includes('Movie Library page.html')) return;
 
-  const TMDB_KEY = 'YOUR_TMDB_API_KEY'; // <-- put your real TMDB key here
+ const TMDB_KEY = 'aa422f87f74479ba91ae1086951f904a';
   const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
   const grid = document.getElementById('grid');
 
